@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.FavoriteGroup" table="favorite_group" schema="bilibili">
+        <id name="groupId">
+            <column name="group_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="userId" update="false">
+            <column name="user_id" sql-type="int(10)"/>
+        </property>
+        <property name="groupName">
+            <column name="group_name" sql-type="varchar(20)" length="20"/>
+        </property>
+        <!--<many-to-one name="userByUserId" class="com.pojo.User">-->
+            <!--<column name="user_id"/>-->
+        <!--</many-to-one>-->
+        <set name="videoFavoritesByGroupId" inverse="true">
+            <key>
+                <column name="group_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoFavorite"/>
+        </set>
+    </class>
+</hibernate-mapping>

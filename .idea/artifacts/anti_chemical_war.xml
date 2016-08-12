@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="anti-chemical:war">
+    <output-path>$PROJECT_DIR$/../fh/02 Engineering/03 Coding/target</output-path>
+    <root id="archive" name="fh.war">
+      <element id="artifact" artifact-name="anti-chemical:war exploded" />
+    </root>
+  </artifact>
+</component>

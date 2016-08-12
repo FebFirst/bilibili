@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.CommentReply" table="comment_reply" schema="bilibili">
+        <composite-id mapped="true" class="com.pojo.CommentReplyPK">
+            <key-property name="commentId">
+                <column name="comment_id" sql-type="int(10)"/>
+            </key-property>
+            <key-property name="replyId">
+                <column name="reply_id" sql-type="int(10)"/>
+            </key-property>
+        </composite-id>
+        <!--<many-to-one name="commentByCommentId" class="com.pojo.Comment">-->
+            <!--<column name="comment_id"/>-->
+        <!--</many-to-one>-->
+        <!--<many-to-one name="replyByReplyId" class="com.pojo.Reply">-->
+            <!--<column name="reply_id"/>-->
+        <!--</many-to-one>-->
+    </class>
+</hibernate-mapping>

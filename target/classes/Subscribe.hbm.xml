@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Subscribe" table="subscribe" schema="bilibili">
+        <composite-id mapped="true" class="com.pojo.SubscribePK">
+            <key-property name="userId">
+                <column name="user_id" sql-type="int(10)"/>
+            </key-property>
+            <key-property name="seriesName">
+                <column name="series_name" sql-type="varchar(50)" length="50"/>
+            </key-property>
+        </composite-id>
+        <!--<many-to-one name="userByUserId" class="com.pojo.User">-->
+            <!--<column name="user_id"/>-->
+        <!--</many-to-one>-->
+        <!--<many-to-one name="seriesBySeriesName" class="com.pojo.Series">-->
+            <!--<column name="series_name"/>-->
+        <!--</many-to-one>-->
+    </class>
+</hibernate-mapping>

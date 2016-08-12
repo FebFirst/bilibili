@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.multipart.maxSize" value="1073741824"/>
+
+    <package name="Bilibili" extends="struts-default, json-default" >
+        <!-- barrage -->
+        <action name="barrageShowAction" class="barrageAction" method="Show">
+            <result name="success" type="json"></result>
+        </action>
+
+        <action name="barrageFetchAction" class="barrageAction" method="FetchByVideoId">
+            <result name="success" type="json"></result>
+        </action>
+
+        <action name="barrageUpdateAction" class="barrageAction" method="UpdateByVideoId">
+            <result name="success" type="json"></result>
+        </action>
+
+        <!-- File Upload -->
+        <action name="uploadTestAction" class="uploadTestAction" method="execute">
+            <result name="json"></result>
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1073741824</param>
+                <param name="allowedTypes">
+                    video/x-msvideo,video/x-dv,video/mp4,video/mpeg,video/mpeg,video/quicktime,video/x-ms-wmv,video/x-flv,video/x-matroska
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+        </action>
+
+        <!-- User -->
+        <action name="registerAction" class="com.action.registerAction" method="execute">
+            <result name="success">index.jsp</result>
+        </action>
+
+        <action name="logInAction" class="com.action.logInOutAction" method="logIn">
+            <result name="success">index.jsp</result>
+            <result name="user">index.jsp</result>
+            <result name="admin">index.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+
+        <action name="logOutAction" class="com.action.logInOutAction" method="logOut">
+            <result name="success">index.jsp</result>
+        </action>
+
+
+        <action name="getAllUser" class="userAction" method="getAllUser">
+            <result name="success" type="json">
+                <param name="root">all</param>
+            </result>
+        </action>
+        <action name="deleteUser" class="userAction" method="deleteUser">
+            <result name = "success" type="json">
+                <param name="root">userId</param>
+            </result>
+        </action>
+
+        <action name="updateUser" class="userAction" method="updateUser">
+            <result name = "success" type="json">
+                <param name="root">userId</param>
+            </result>
+        </action>
+
+        <action name="getLastDayUser" class="userAction" method="getLastDaySignUp">
+            <result name="success" type="json">
+                <param name="root">all</param>
+            </result>
+        </action>
+        <!-- 上传视频信息 -->
+        <action name="*VideoInfo" class="com.action.videoAction" method = "{1}">
+            <result name="success">/index.jsp</result>
+            <result name="error">/upload.jsp</result>
+        </action>
+
+
+        <action name="getAllVideo" class="videoAction" method="getAllVideo">
+            <result name="success" type="json">
+                <param name="root">videoBeanList</param>
+            </result>
+        </action>
+
+        <action name="deleteVideo" class="videoAction" method="delete">
+            <result name="success" type="json">
+                <param name="root">videoId</param>
+            </result>
+        </action>
+        <action name="updateVideo" class="videoAction" method="update">
+            <result name="success" type="json">
+                <param name="root">videoId</param>
+            </result>
+        </action>
+
+        <action name="getLastDayVideo" class="videoAction" method="getLastDayUpload">
+            <result name="success" type="json">
+                <param name="root">videoBeanList</param>
+            </result>
+        </action>
+        <!-- 收藏-->
+        <action name="favCollect" class="com.action.videoFavoriteAction" method="addVideo">
+            <result name="success">/single.jsp</result>
+        </action>
+        <action name="favCollectWithNewFile" class="com.action.videoFavoriteAction" method="createFile">
+            <result name="success">/single.jsp</result>
+        </action>
+            <!--列出所有收藏夹内容，在点击收藏的时候调用，并放回给前台ajax -->
+        <action name="listFavoriteGroup" class="com.action.videoFavoriteAction" method="listFavoriteGroup">
+            <result name="success" type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+        <!-- 私信 -->
+            <!-- 发送私信-->
+        <action name="sendSecretLetter" class="com.action.secretLetterAction" method="sendLetter">
+            <result name="success">userProfile.jsp</result>
+        </action>
+            <!-- 私信列表 -->
+        <action name="letterList" class="com.action.secretLetterAction" method="listLetter">
+            <result name="json" type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+        <!--发布评论 -->
+        <action name="commentAction" class="com.action.videoCommentAction" method="commentVideo">
+            <result name="success">single.jsp</result>
+        </action>
+        <!--回复评论-->
+        <action name="replyComment" class="com.action.videoCommentReplyAction" method="replyComment">
+            <result name="success">single.jsp</result>
+        </action>
+        <!--评论点赞-->
+        <action name="thumbComment" class="com.action.videoCommentAction" method="thumbCount">
+            <result name="success">single.jsp</result>
+        </action>
+        <!-- 评论回复的点赞-->
+        <action name="thumbReply" class="com.action.replyAction" method="thumbCount">
+            <result name="success">single.jsp</result>
+        </action>
+
+        <!-- 查看我的兴趣部落 -->
+        <action name="myInterestGroup" class="com.action.interestGroupAction" method="listInterestGroupByUser">
+            <result name="success" type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <!-- 加入兴趣部落-->
+        <action name="addInterestGroup" class="com.action.interestGroupAction" method="addInterestGroup">
+            <result name="success">single.jsp</result>
+        </action>
+
+        <!--查看我的上传 -->
+        <action name="myUpload" class="com.action.userAction" method="listMyVideo">
+            <result name="success" type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+        <!-- 显示single页面所需数据（如评论专区，video信息等）-->
+        <action name="singleData" class="com.action.videoAction" method="autoPlay">
+            <result name="success">single.jsp</result>
+        </action>
+
+        <!-- 视频点赞功能-->
+        <action name="thumbCount" class="com.action.videoAction" method="thumbCount">
+            <result name="success">single.jsp</result>
+        </action>
+
+        <!-- 评论举报功能-->
+        <action name="reportComment" class="com.action.videoCommentAction" method="report">
+            <result name="success">single.jsp</result>
+        </action>
+        <!--回复举报功能-->
+        <action name="reportReply" class="com.action.replyAction" method="report">
+            <result name="success">single.jsp</result>
+        </action>
+        <!-- 帖子举报功能-->
+        <action name="reportPost" class="com.action.groupPostAction" method="report">
+            <result name="success">post.jsp</result>
+        </action>
+
+        <!-- 删除评论功能 -->
+        <action name="deleteComment" class="com.action.videoCommentAction" method="deleteComment">
+            <result name="success">single.jsp</result>
+        </action>
+        <!-- 删除回复功能 -->
+        <action name="deleteReply" class="com.action.replyAction" method="deleteReply">
+            <result name="success">single.jsp</result>
+        </action>
+
+        <action name="getReplyReport" class="com.action.replyAction" method="getReplyReport">
+            <result name="success" type="json">
+                <param name="root">reportList</param>
+            </result>
+        </action>
+
+        <action name="getReplyById" class="com.action.replyAction" method="findReplyById">
+            <result  name="success" type="json">
+                <param name="root">reply</param>
+            </result>
+        </action>
+
+        <action name="deleteReplyReport" class="com.action.replyAction" method="deleteReplyReport">
+            <result name="success" type="json">
+                <param name="root">reportId</param>
+            </result>
+        </action>
+
+        <action name="updateReplyReport" class="com.action.replyAction" method="updateReplyReport">
+            <result name="success" type="json">
+                <param name="root">reportId</param>
+            </result>
+        </action>
+
+        <action name="getReply" class="com.action.replyAction" method="listReplies">
+            <result  name="success" type="json">
+                <param name="root">reply</param>
+            </result>
+        </action>
+        <!-- 兴趣圈 -->
+        <!-- 列出某兴趣圈的所有帖子-->
+        <action name="postList" class="com.action.interestGroupAction" method="enterGroup">
+            <result name="success">interestGroup.jsp</result>
+        </action>
+        <!-- 发帖 -->
+        <action name="sendPost" class="com.action.groupPostAction" method="publish">
+            <result name="success">interestGroup.jsp</result>
+        </action>
+        <!--  退出部落 -->
+        <action name="quitInterestGroup" class="com.action.interestGroupAction" method="quitInterestGroup">
+            <result name="success">interestGroup.jsp</result>
+        </action>
+        <!-- 看帖-->
+        <action name="clickPost" class="com.action.groupPostAction" method="enterPost">
+            <result name="success">post.jsp</result>
+        </action>
+        <!-- 回复-->
+        <action name="replyPost" class="com.action.groupReplyAction" method="reply">
+            <result name="success">post.jsp</result>
+        </action>
+        <!-- 点赞-->
+        <action name="thumbPost" class="com.action.groupPostAction" method="thumbCount">
+            <result name="success">post.jsp</result>
+        </action>
+
+        <!-- end of interest group-->
+        <!-- User Behavior Record -->
+        <action name="favoriteBehaviorRecord" class="userBehaviorRecord" method="favoriteBehavior">
+            <result name="success" type="json"/>
+        </action>
+        <action name="thumbBehaviorRecord" class="userBehaviorRecord" method="thumbBehavior">
+            <result name="success" type="json"/>
+        </action>
+        <action name="watchedBehaviorRecord" class="userBehaviorRecord" method="watchedBehavior">
+            <result name="success" type="json"/>
+        </action>
+
+        <!-- 全文搜索功能(index)-->
+        <action name="searchAction" class="com.action.videoAction" method="search">
+            <result name="success">index.jsp</result>
+        </action>
+
+
+
+        <!-- 点开首页，自动显示所有视频信息-->
+        <action name="indexAllVideoInfo" class="videoAction" method="listVideos">
+            <result name="success" type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Video" table="video" schema="bilibili">
+        <id name="videoId">
+            <column name="video_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="uper">
+            <column name="uper" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="topic">
+            <column name="topic" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="title">
+            <column name="title" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="content">
+            <column name="content" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="link">
+            <column name="link" sql-type="varchar(300)" length="300"/>
+        </property>
+        <property name="createTime">
+            <column name="create_time" sql-type="time"/>
+        </property>
+        <property name="lastUpdate">
+            <column name="last_update" sql-type="time"/>
+        </property>
+        <property name="isPass">
+            <column name="is_pass" sql-type="tinyint(1)"/>
+        </property>
+        <property name="clickCount">
+            <column name="click_count" sql-type="int(10)"/>
+        </property>
+        <property name="thumbCount">
+            <column name="thumb_count" sql-type="int(10)"/>
+        </property>
+        <set name="seriesVideosByVideoId" inverse="true">
+            <key>
+                <column name="video_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.SeriesVideo"/>
+        </set>
+        <!--<set name="tagVideosByVideoId" inverse="true">-->
+            <!--<key>-->
+                <!--<column name="video_id"/>-->
+            <!--</key>-->
+            <!--<one-to-many not-found="ignore" class="com.pojo.TagVideo"/>-->
+        <!--</set>-->
+        <set name="videoCommentsByVideoId" inverse="true">
+            <key>
+                <column name="video_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoComment"/>
+        </set>
+        <set name="videoFavoritesByVideoId" inverse="true">
+            <key>
+                <column name="video_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoFavorite"/>
+        </set>
+        <set name="videoReportsByVideoId" inverse="true">
+            <key>
+                <column name="video_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoReport"/>
+        </set>
+        <set name="videoSubcategoriesByVideoId" inverse="true">
+            <key>
+                <column name="video_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoSubcategory"/>
+        </set>
+        <set name="videoUpersByVideoId" inverse="true">
+            <key>
+                <column name="video_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoUper"/>
+        </set>
+    </class>
+</hibernate-mapping>

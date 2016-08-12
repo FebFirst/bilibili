@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Comment" table="comment" schema="bilibili">
+        <id name="commentId">
+            <column name="comment_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="content">
+            <column name="content" sql-type="varchar(200)" length="200"/>
+        </property>
+        <property name="createTime">
+            <column name="create_time" sql-type="datetime"/>
+        </property>
+        <property name="thumbCount">
+            <column name="thumb_count" sql-type="int(10)"/>
+        </property>
+        <property name="commentPusher">
+            <column name="comment_pusher" sql-type="varchar(50)" length="50"/>
+        </property>
+        <set name="commentRepliesByCommentId" inverse="true">
+            <key>
+                <column name="comment_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.CommentReply"/>
+        </set>
+        <set name="commentReportsByCommentId" inverse="true">
+            <key>
+                <column name="comment_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.CommentReport"/>
+        </set>
+        <set name="userCommentsByCommentId" inverse="true">
+            <key>
+                <column name="comment_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserComment"/>
+        </set>
+        <set name="videoCommentsByCommentId" inverse="true">
+            <key>
+                <column name="comment_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoComment"/>
+        </set>
+    </class>
+</hibernate-mapping>

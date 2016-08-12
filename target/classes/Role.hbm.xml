@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Role" table="role" schema="bilibili">
+        <id name="roleId">
+            <column name="role_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="roleName">
+            <column name="role_name" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <set name="roleAuthoritiesByRoleId" inverse="true">
+            <key>
+                <column name="role_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.RoleAuthority"/>
+        </set>
+        <set name="userRolesByRoleId" inverse="true">
+            <key>
+                <column name="role_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserRole"/>
+        </set>
+    </class>
+</hibernate-mapping>

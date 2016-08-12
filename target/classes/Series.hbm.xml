@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Series" table="series" schema="bilibili">
+        <id name="seriesName">
+            <column name="series_name" sql-type="varchar(50)" length="50"/>
+        </id>
+        <set name="seriesVideosBySeriesName" inverse="true">
+            <key>
+                <column name="series_name"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.SeriesVideo"/>
+        </set>
+        <set name="subscribesBySeriesName" inverse="true">
+            <key>
+                <column name="series_name"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.Subscribe"/>
+        </set>
+    </class>
+</hibernate-mapping>

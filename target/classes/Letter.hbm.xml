@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.pojo.Letter" table="letter" schema="bilibili">
+        <id name="letterId">
+            <column name="letter_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="senderId">
+            <column name="sender_id" sql-type="int(10)"/>
+        </property>
+        <property name="receiverId">
+            <column name="receiver_id" sql-type="int(10)"/>
+        </property>
+        <property name="letterContent">
+            <column name="letter_content" sql-type="varchar(500)" length="500"/>
+        </property>
+        <!-- many-to-one 需要注释，否则必须insert&update=false!!-->
+        <!--<many-to-one name="userByReceiverId" class="com.pojo.User">-->
+            <!--<column name="receiver_id"/>-->
+        <!--</many-to-one>-->
+        <!--<many-to-one name="userBySenderId" class="com.pojo.User">-->
+            <!--<column name="sender_id"/>-->
+        <!--</many-to-one>-->
+    </class>
+</hibernate-mapping>

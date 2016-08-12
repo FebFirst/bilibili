@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Subcategory" table="subcategory" schema="bilibili">
+        <id name="subcategoryName">
+            <column name="subcategory_name" sql-type="varchar(50)" length="50"/>
+        </id>
+        <property name="categoryName" insert="false" update="false">
+            <column name="category_name" sql-type="varchar(50)" length="50"/>
+        </property>
+        <!--<many-to-one name="categoryByCategoryName" class="com.pojo.Category">-->
+            <!--<column name="category_name"/>-->
+        <!--</many-to-one>-->
+        <set name="videoSubcategoriesBySubcategoryName" inverse="true">
+            <key>
+                <column name="subcategory_name"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoSubcategory"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Reply" table="reply" schema="bilibili">
+        <id name="replyId">
+            <column name="reply_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="content">
+            <column name="content" sql-type="varchar(200)" length="200"/>
+        </property>
+        <property name="thumbCount">
+            <column name="thumb_count" sql-type="int(10)"/>
+        </property>
+        <property name="replyPusher">
+            <column name="reply_pusher" sql-type="varchar(50)" length="50"/>
+        </property>
+        <set name="commentRepliesByReplyId" inverse="true">
+            <key>
+                <column name="reply_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.CommentReply"/>
+        </set>
+        <set name="postRepliesByReplyId" inverse="true">
+            <key>
+                <column name="reply_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.PostReply"/>
+        </set>
+        <set name="replyReportsByReplyId" inverse="true">
+            <key>
+                <column name="reply_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.ReplyReport"/>
+        </set>
+        <set name="userRepliesByReplyId" inverse="true">
+            <key>
+                <column name="reply_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserReply"/>
+        </set>
+    </class>
+</hibernate-mapping>

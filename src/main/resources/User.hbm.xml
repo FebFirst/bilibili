@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.User" table="user" schema="bilibili">
+        <id name="userId">
+            <column name="user_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="pwdhash">
+            <column name="pwdhash" sql-type="blob"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="tinyint(1)"/>
+        </property>
+        <property name="gender">
+            <column name="gender" sql-type="tinyint(1)" not-null="true"/>
+        </property>
+        <property name="signature">
+            <column name="signature" sql-type="varchar(200)" length="200"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="birthday">
+            <column name="birthday" sql-type="date" not-null="true"/>
+        </property>
+        <property name="created">
+            <column name="created" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="lastUpdate">
+            <column name="last_update" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="realName">
+            <column name="realName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="university">
+            <column name="university" sql-type="varchar(200)" length="200" not-null="true"/>
+        </property>
+        <property name="experience">
+            <column name="experience" sql-type="int(11)" not-null="true"/>
+        </property>
+        <set name="commentReportsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.CommentReport"/>
+        </set>
+        <set name="favoriteGroupsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.FavoriteGroup"/>
+        </set>
+        <set name="followsByUserId" inverse="true">
+            <key>
+                <column name="follower_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.Follow"/>
+        </set>
+        <set name="followsByUserId_0" inverse="true">
+            <key>
+                <column name="followee_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.Follow"/>
+        </set>
+        <set name="interestGroupUsersByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.InterestGroupUser"/>
+        </set>
+        <set name="lettersByUserId" inverse="true">
+            <key>
+                <column name="receiver_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.Letter"/>
+        </set>
+        <set name="lettersByUserId_0" inverse="true">
+            <key>
+                <column name="sender_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.Letter"/>
+        </set>
+        <set name="postReportsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.PostReport"/>
+        </set>
+        <set name="replyReportsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.ReplyReport"/>
+        </set>
+        <set name="subscribesByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.Subscribe"/>
+        </set>
+        <set name="userCommentsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserComment"/>
+        </set>
+        <set name="userPostsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserPost"/>
+        </set>
+        <set name="userRepliesByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserReply"/>
+        </set>
+        <set name="userRolesByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserRole"/>
+        </set>
+        <set name="videoReportsByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoReport"/>
+        </set>
+        <set name="videoUpersByUserId" inverse="true">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.VideoUper"/>
+        </set>
+    </class>
+</hibernate-mapping>

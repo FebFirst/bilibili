@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.ReplyReport" table="reply_report" schema="bilibili">
+        <composite-id mapped="true" class="com.pojo.ReplyReportPK">
+            <key-property name="replyId">
+                <column name="reply_id" sql-type="int(10)"/>
+            </key-property>
+            <key-property name="userId">
+                <column name="user_id" sql-type="int(10)"/>
+            </key-property>
+        </composite-id>
+        <property name="reason">
+            <column name="reason" sql-type="varchar(100)" length="100"/>
+        </property>
+        <!--<many-to-one name="userByUserId" class="com.pojo.User">-->
+            <!--<column name="user_id"/>-->
+        <!--</many-to-one>-->
+        <!--<many-to-one name="replyByReplyId" class="com.pojo.Reply">-->
+            <!--<column name="reply_id"/>-->
+        <!--</many-to-one>-->
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.GroupPost" table="group_post" schema="bilibili">
+        <composite-id mapped="true" class="com.pojo.GroupPostPK">
+            <key-property name="postId">
+                <column name="post_id" sql-type="int(10)"/>
+            </key-property>
+            <key-property name="interestGroupId">
+                <column name="interest_group_id" sql-type="int(10)"/>
+            </key-property>
+        </composite-id>
+        <!--<many-to-one name="interestGroupByInterestGroupId" class="com.pojo.InterestGroup">-->
+            <!--<column name="interest_group_id"/>-->
+        <!--</many-to-one>-->
+        <!--<many-to-one name="postByPostId" class="com.pojo.Post">-->
+            <!--<column name="post_id"/>-->
+        <!--</many-to-one>-->
+    </class>
+</hibernate-mapping>

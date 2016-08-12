@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.Post" table="post" schema="bilibili">
+        <id name="postId">
+            <column name="post_id" sql-type="int(10)"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="content">
+            <column name="content" sql-type="varchar(500)" length="500"/>
+        </property>
+        <property name="createTime">
+            <column name="create_time" sql-type="datetime"/>
+        </property>
+        <property name="thumbCount">
+            <column name="thumb_count" sql-type="int(10)"/>
+        </property>
+        <property name="postPusher">
+            <column name="post_pusher" sql-type="varchar(50)" length="50"/>
+        </property>
+        <set name="groupPostsByPostId" inverse="true">
+            <key>
+                <column name="post_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.GroupPost"/>
+        </set>
+        <set name="postRepliesByPostId" inverse="true">
+            <key>
+                <column name="post_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.PostReply"/>
+        </set>
+        <set name="postReportsByPostId" inverse="true">
+            <key>
+                <column name="post_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.PostReport"/>
+        </set>
+        <set name="userPostsByPostId" inverse="true">
+            <key>
+                <column name="post_id"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.pojo.UserPost"/>
+        </set>
+    </class>
+</hibernate-mapping>

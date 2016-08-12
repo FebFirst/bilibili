@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.pojo.TagVideo" table="tag_video" schema="bilibili">
+        <composite-id mapped="true" class="com.pojo.TagVideoPK">
+            <key-property name="videoId">
+                <column name="video_id" sql-type="int(10)"/>
+            </key-property>
+            <key-property name="tagId">
+                <column name="tag_id" sql-type="int(10)"/>
+            </key-property>
+        </composite-id>
+        <many-to-one name="tagByTagId" class="com.pojo.Tag">
+            <column name="tag_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
